@@ -15,10 +15,6 @@ android {
         versionCode = 13          // First release
         versionName = "9"      // Human-readable version
 
-        // Needed for SQLCipher native libs
-        ndk {
-            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
-        }
     }
 
     // 🔐 Signing config for Play Store release (edit keystore details in gradle.properties)
@@ -98,7 +94,7 @@ dependencies {
     // Security - EncryptedSharedPreferences
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
 
-    // SQLCipher for encrypted Room
+    // SQLCipher for encrypted Room (needed for migration)
     implementation("net.zetetic:android-database-sqlcipher:4.5.4")
     implementation("androidx.sqlite:sqlite:2.4.0")
 
