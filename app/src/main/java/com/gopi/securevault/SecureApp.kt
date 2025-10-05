@@ -1,17 +1,19 @@
 package com.gopi.securevault
 
 import android.app.Application
-import net.sqlcipher.database.SQLiteDatabase
+import com.gopi.securevault.data.db.converters.EncryptionConverter
+import com.gopi.securevault.data.db.migration.MigrationHelper
+import com.gopi.securevault.security.EncryptionService
 
 class SecureApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // Initialize SQLCipher once
-        SQLiteDatabase.loadLibs(this)
+        // Perform data migration if needed
+        MigrationHelper.performMigration(this)
 
-
-        // Suppress SQLCipher verbose warnings
-        System.setProperty("net.sqlcipher.database.VERBOSE", "false")
+        // Initialize EncryptionService
+        val encryptionService = EncryptionService()
+        EncryptionConverter.encryptionService = encryptionService
     }
 }
